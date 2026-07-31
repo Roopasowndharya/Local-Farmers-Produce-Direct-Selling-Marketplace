@@ -4,17 +4,17 @@
 
 Local Farmers Produce Direct-Selling Marketplace is a digital platform that connects local farmers directly with customers by creating a transperent and efficient agricultural marketplace.
 
-The platform helps farmers showcase their products, reach customers easily, and improve their selling opportunities while allowing customers to access fresh and trusted agricultural poducts.
+The platform helps farmers showcase their products, reach customers easily, and improve their selling opportunities while allowing customers to access fresh and trusted agricultural products.
 
 ## Problem Statement
 
-Many local farmers face diffficulties in reaching customers directly and depend on traditional selling methods. This creates a gap between farmers and customers, where farmers may not get betterr market oppoutunites and customers may not gave direct access to fresh products.
+Many local farmers face difficulties in reaching customers directly and depend on traditional selling methods. This creates a gap between farmers and customers, where farmers may not get better market opportunites and customers may not have direct access to fresh products.
 
-This project aims to solve this porblem by creating a direcct connection between producers and consumers.
+This project aims to solve this problem by creating a direcct connection between producers and consumers.
 
 ## Vision 
 
-To buiid a technology-driven platform taht empowers local farmers and creates a transparent connection between producers and consumers.
+To buiid a technology-driven platform that empowers local farmers and creates a transparent connection between producers and consumers.
 
 ## Solution
 
