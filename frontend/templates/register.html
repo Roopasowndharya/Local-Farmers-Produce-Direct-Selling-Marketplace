@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Local Farmers Marketplace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>🌱 Local Farmers Marketplace</h1>
+
+    <h2>Create Account</h2>
+
+    <form method="POST">
+        <label>User ID:</label>
+        <input type="number" name="user_id" required>
+        <br><br>
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <br><br>
+
+        <label>Role:</label>
+        <select name="role">
+            <option value="Farmer">Farmer</option>
+            <option value="Customer">Customer</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p>Already have an account?</p>
+
+    <a href="/login">
+        <button type="button">Login</button>
+    </a>
+
+</body>
+</html>

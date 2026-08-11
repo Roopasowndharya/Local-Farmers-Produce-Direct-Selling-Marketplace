@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browse Products</title>
+</head>
+
+<body>
+
+<h1>🌱 Available Farm Products</h1>
+
+{% if products %}
+
+    {% for product in products %}
+
+        <div>
+            <h2>{{ product[1] }}</h2>
+
+            <p>Product ID: {{ product[0] }}</p>
+            <p>Category: {{ product[2] }}</p>
+            <p>Price: ₹{{ product[3] }}</p>
+            <p>Quantity: {{ product[4] }}</p>
+            <p>Farmer ID: {{ product[5] }}</p>
+
+            <hr>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No products found!</p>
+
+{% endif %}
+
+<a href="/">
+    <button>Home</button>
+</a>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+
+<body>
+
+<h1>🌱 Add Farm Product</h1>
+
+<form method="POST">
+
+    <label>Product ID:</label>
+    <input type="number" name="product_id" required>
+    <br><br>
+
+    <label>Product Name:</label>
+    <input type="text" name="product_name" required>
+    <br><br>
+
+    <label>Category:</label>
+    <input type="text" name="category" required>
+    <br><br>
+
+    <label>Price:</label>
+    <input type="number" step="0.01" name="price" required>
+    <br><br>
+
+    <label>Quantity:</label>
+    <input type="number" name="quantity" required>
+    <br><br>
+
+    <label>Farmer ID:</label>
+    <input type="number" name="farmer_id" required>
+    <br><br>
+
+    <button type="submit">Add Product</button>
+
+</form>
+
+<br>
+
+<a href="/products">
+    <button type="button">Browse Products</button>
+</a>
+
+</body>
+</html>

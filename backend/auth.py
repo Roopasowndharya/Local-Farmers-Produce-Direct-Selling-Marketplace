@@ -1,35 +1,46 @@
 import sqlite3
 import os
-#Get absolute path to project root
+
+# Get absolute path to project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#Connect to database using absolute path
-DB_PATH = os.path.join(BASE_DIR, "database","farmers.db")
-connection=sqlite3.connect(DB_PATH)
-cursor=connection.cursor()
-def register():
-    user_id=int(input("Enter User ID:"))
-    name=input("Enter Name:")
-    email=input("Enter Email:")
-    password=input("Enter Password:")
-    role=input("Enter Role(farmer/customer):")
+
+# Database path
+DB_PATH = os.path.join(BASE_DIR, "database", "farmers.db")
+
+
+def register(user_id, name, email, password, role):
+    connection = sqlite3.connect(DB_PATH)
+    cursor = connection.cursor()
+
     try:
-        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)",(user_id, name, email, password, role))
+        cursor.execute(
+            "INSERT INTO users (user_id, name, email, password, role) VALUES (?, ?, ?, ?, ?)",
+            (user_id, name, email, password, role)
+        )
+
         connection.commit()
-        print("Registration successful!")
+        return True, "Registration successful!"
+
     except sqlite3.IntegrityError:
-        print("Email already exists!")
-def login():
-    email=input("Enter Email:")
-    password=input("Enter Password:")
-    cursor.execute("SELECT*FROM users WHERE email=? AND password=?",(email, password))
-    user=cursor.fetchone()
-    if user:
-        print("Login successful!")
-        print("Welcome",user[1])
-        print("Role:",user[4])
-    else:
-        print("Invalid email or password!")
-if __name__=="__main__":
-    register()
-    login()
+        return False, "Email or User ID already exists!"
+
+    finally:
+        connection.close()
+
+
+def login(email, password):
+    connection = sqlite3.connect(DB_PATH)
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT * FROM users WHERE email = ? AND password = ?",
+        (email, password)
+    )
+
+    user = cursor.fetchone()
     connection.close()
+
+    if user:
+        return True, user
+
+    return False, None
