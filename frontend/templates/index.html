@@ -1,25 +1,359 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Local Farmers Marketplace</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f1;
+            color: #263b2a;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(30, 90, 35, 0.75),
+                    rgba(30, 90, 35, 0.75)
+                ),
+                url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            background: white;
+            color: #2e7d32;
+            transition: 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .button.primary {
+            background: #43a047;
+            color: white;
+        }
+
+        /* About Section */
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 50px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 30px;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* Feature Cards */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Marketplace Section */
+
+        .marketplace {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .marketplace h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .marketplace p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .hero {
+                min-height: 450px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .container {
+                width: 94%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>🌱 Local Farmers Produce Direct-Selling Marketplace</h1>
+    <!-- Hero Section -->
 
-    <p>Fresh produce directly from local farmers.</p>
+    <section class="hero">
 
-    <a href="/register">
-    <button type="button">Register</button>
-    </a>
-    <a href="/login">
-        <button type="button">Login</button>
-    </a>
-    <a href="/products">
-        <button type="button">Browse Products</button>
-    </a>
+        <div class="hero-content">
+
+            <h1>🌱 Local Farmers Produce Direct-Selling Marketplace</h1>
+
+            <p>
+                Fresh farm produce directly from local farmers,
+                connecting growers and customers through a simple
+                and transparent marketplace.
+            </p>
+
+            <div class="button-group">
+
+                <a href="/products" class="button primary">
+                    🛒 Browse Products
+                </a>
+
+                <a href="/login" class="button">
+                    🔐 Login
+                </a>
+
+                <a href="/register" class="button">
+                    🌱 Join Marketplace
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Why Choose Us -->
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>🌾 Why Our Marketplace?</h2>
+
+            <p>
+                Connecting local farmers and customers in one place.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🥕</div>
+
+                <h3>Fresh Local Produce</h3>
+
+                <p>
+                    Discover fresh fruits, vegetables and other
+                    farm products listed directly by local farmers.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">👨‍🌾</div>
+
+                <h3>Support Local Farmers</h3>
+
+                <p>
+                    Help farmers connect directly with customers
+                    and showcase their products.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🤝</div>
+
+                <h3>Direct Selling</h3>
+
+                <p>
+                    Create a direct connection between farmers
+                    and customers through our marketplace.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">🌱</div>
+
+                <h3>Farm-to-Customer</h3>
+
+                <p>
+                    Make locally produced farm goods easier
+                    for customers to discover.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Marketplace Section -->
+
+    <div class="container">
+
+        <div class="marketplace">
+
+            <h2>🛒 Explore Fresh Products</h2>
+
+            <p>
+                Browse products available from local farmers
+                and discover fresh produce for your everyday needs.
+            </p>
+
+            <a href="/products" class="button primary">
+                View Available Products
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            🌱 Local Farmers Produce Direct-Selling Marketplace
+        </p>
+
+        <p>
+            Connecting Farmers • Empowering Local Communities
+        </p>
+
+    </footer>
 
 </body>
+
 </html>

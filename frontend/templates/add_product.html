@@ -1,48 +1,466 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Add Product</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Product - Local Farmers Marketplace</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    rgba(244, 248, 241, 0.94),
+                    rgba(244, 248, 241, 0.94)
+                ),
+                url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 40px 15px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            color: #2e7d32;
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .product-card {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .card-title .icon {
+            font-size: 45px;
+            margin-bottom: 8px;
+        }
+
+        .card-title h2 {
+            color: #2e7d32;
+            font-size: 25px;
+        }
+
+        .card-title p {
+            color: #777;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #43a047;
+        }
+
+        /* Product photo upload */
+
+        .photo-upload {
+            border: 2px dashed #81c784;
+            background: #f8fff8;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .photo-icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .photo-upload input {
+            border: none;
+            padding: 8px;
+            background: transparent;
+        }
+
+        .photo-help {
+            display: block;
+            margin-top: 7px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .form-help {
+            display: block;
+            margin-top: 6px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .add-button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #43a047;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+        .add-button:hover {
+            background: #2e7d32;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .navigation a {
+            display: inline-block;
+
+            padding: 11px 20px;
+
+            margin: 5px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .browse-button {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .dashboard-button {
+            background: #eeeeee;
+            color: #444;
+        }
+
+        .browse-button:hover {
+            background: #c8e6c9;
+        }
+
+        .dashboard-button:hover {
+            background: #dddddd;
+        }
+
+        @media (max-width: 600px) {
+
+            .product-card {
+                padding: 25px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🌱 Add Farm Product</h1>
+    <div class="page-header">
 
-<form method="POST">
+        <h1>
+            🌱 Local Farmers Marketplace
+        </h1>
 
-    <label>Product ID:</label>
-    <input type="number" name="product_id" required>
-    <br><br>
+        <p>
+            Share your fresh farm produce with local customers
+        </p>
 
-    <label>Product Name:</label>
-    <input type="text" name="product_name" required>
-    <br><br>
+    </div>
 
-    <label>Category:</label>
-    <input type="text" name="category" required>
-    <br><br>
 
-    <label>Price:</label>
-    <input type="number" step="0.01" name="price" required>
-    <br><br>
+    <div class="product-card">
 
-    <label>Quantity:</label>
-    <input type="number" name="quantity" required>
-    <br><br>
+        <div class="card-title">
 
-    <label>Farmer ID:</label>
-    <input type="number" name="farmer_id" required>
-    <br><br>
+            <div class="icon">
+                🥕
+            </div>
 
-    <button type="submit">Add Product</button>
+            <h2>
+                List Your Farm Product
+            </h2>
 
-</form>
+            <p>
+                Add your fresh produce to the marketplace
+                and connect directly with customers.
+            </p>
 
-<br>
+        </div>
 
-<a href="/products">
-    <button type="button">Browse Products</button>
-</a>
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <!-- Product Name -->
+
+            <div class="form-group">
+
+                <label for="product_name">
+                    🥕 Product Name
+                </label>
+
+                <input
+                    type="text"
+                    id="product_name"
+                    name="product_name"
+                    placeholder="Example: Tomato"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    🌿 Category
+                </label>
+
+                <input
+                    type="text"
+                    id="category"
+                    name="category"
+                    placeholder="Example: Vegetables"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Product Photo -->
+
+            <div class="form-group">
+
+                <label for="image">
+                    📸 Product Photo
+                </label>
+
+                <div class="photo-upload">
+
+                    <div class="photo-icon">
+                        🖼️
+                    </div>
+
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept="image/*"
+                        required
+                    >
+
+                    <span class="photo-help">
+                        Upload a clear photo of your farm product.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Price -->
+
+            <div class="form-group">
+
+                <label for="price">
+                    💰 Price
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    step="0.01"
+                    min="0"
+                    placeholder="Example: 40"
+                    required
+                >
+
+                <span class="form-help">
+                    Enter the price per unit in Indian Rupees (₹).
+                </span>
+
+            </div>
+
+
+            <!-- Quantity -->
+
+            <div class="form-group">
+
+                <label for="quantity">
+                    📦 Available Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min="1"
+                    placeholder="Example: 20"
+                    required
+                >
+
+                <span class="form-help">
+                    Enter the amount of produce currently available.
+                </span>
+
+            </div>
+
+
+            <!-- Unit -->
+
+            <div class="form-group">
+
+                <label for="unit">
+                    ⚖️ Unit
+                </label>
+
+                <select
+                    id="unit"
+                    name="unit"
+                    required
+                >
+
+                    <option value="kg">
+                        Kilogram (kg)
+                    </option>
+
+                    <option value="gram">
+                        Gram (g)
+                    </option>
+
+                    <option value="litre">
+                        Litre (L)
+                    </option>
+
+                    <option value="piece">
+                        Piece
+                    </option>
+
+                    <option value="bunch">
+                        Bunch
+                    </option>
+
+                    <option value="dozen">
+                        Dozen
+                    </option>
+
+                    <option value="packet">
+                        Packet
+                    </option>
+
+                </select>
+
+                <span class="form-help">
+                    Choose how the product quantity is measured.
+                </span>
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button
+                type="submit"
+                class="add-button"
+            >
+                ➕ Add Product
+            </button>
+
+        </form>
+
+
+        <!-- Navigation -->
+
+        <div class="navigation">
+
+            <a
+                href="/products"
+                class="browse-button"
+            >
+                🛒 Browse Products
+            </a>
+
+            <a
+                href="/dashboard"
+                class="dashboard-button"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

@@ -1,40 +1,370 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Browse Products</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Farm Products</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f1;
+            color: #263b2a;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            color: white;
+            padding: 30px 60px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 17px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: #2e7d32;
+        }
+
+        .section-title p {
+            margin-top: 8px;
+            color: #666;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 23px;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+
+        .price-unit {
+            font-size: 15px;
+            color: #555;
+            font-weight: normal;
+        }
+
+        .details {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .farmer {
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+
+        .view-button {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #2e7d32;
+            color: white;
+            padding: 11px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .view-button:hover {
+            background: #1b5e20;
+        }
+
+        .no-products {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        .bottom-nav {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: #555;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background: #333;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 25px 15px;
+            }
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .container {
+                width: 94%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🌱 Available Farm Products</h1>
+    <header>
 
-{% if products %}
+        <h1>
+            🌱 Local Farmers Marketplace
+        </h1>
 
-    {% for product in products %}
+        <p>
+            Fresh produce directly from local farmers to your doorstep
+        </p>
 
-        <div>
-            <h2>{{ product[1] }}</h2>
+    </header>
 
-            <p>Product ID: {{ product[0] }}</p>
-            <p>Category: {{ product[2] }}</p>
-            <p>Price: ₹{{ product[3] }}</p>
-            <p>Quantity: {{ product[4] }}</p>
-            <p>Farmer ID: {{ product[5] }}</p>
 
-            <hr>
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                🥕 Fresh Farm Products
+            </h2>
+
+            <p>
+                Discover fresh and locally produced items from our farmers.
+            </p>
+
         </div>
 
-    {% endfor %}
 
-{% else %}
+        {% if products %}
 
-    <p>No products found!</p>
+        <div class="product-grid">
 
-{% endif %}
+            {% for product in products %}
 
-<a href="/">
-    <button>Home</button>
-</a>
+            <div class="product-card">
+
+
+                <!-- =================================================
+                     PRODUCT IMAGE
+                ================================================= -->
+
+                {% if product[7] %}
+
+                    <img
+                        class="product-image"
+                        src="{{ url_for('static', filename='uploads/' + product[7]) }}"
+                        alt="{{ product[1] }}"
+                    >
+
+                {% else %}
+
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
+                        alt="Farm Product"
+                    >
+
+                {% endif %}
+
+
+                <div class="product-content">
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <h2 class="product-name">
+
+                        {{ product[1] }}
+
+                    </h2>
+
+
+                    <!-- CATEGORY -->
+
+                    <span class="category">
+
+                        🌿 {{ product[2] }}
+
+                    </span>
+
+
+                    <!-- PRICE -->
+
+                    <div class="price">
+
+                        ₹{{ product[3] }}
+
+                        <span class="price-unit">
+
+                            / {{ product[5] }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="details">
+
+                        📦 Available Quantity:
+
+                        <strong>
+                            {{ product[4] }} {{ product[5] }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- FARMER -->
+
+                    <div class="farmer">
+
+                        👨‍🌾 Supplied by Farmer #{{ product[6] }}
+
+                    </div>
+
+
+                    <!-- PRODUCT DETAILS -->
+
+                    <a
+                        href="{{ url_for('product_details', product_id=product[0]) }}"
+                        class="view-button"
+                    >
+
+                        View Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- NO PRODUCTS -->
+
+        <div class="no-products">
+
+            <h2>
+                🌱 No products available
+            </h2>
+
+            <p>
+                Farmers haven't added any products yet.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+        <!-- BOTTOM NAVIGATION -->
+
+        <div class="bottom-nav">
+
+            <a
+                href="/"
+                class="home-button"
+            >
+
+                🏠 Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

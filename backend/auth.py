@@ -8,21 +8,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "database", "farmers.db")
 
 
-def register(user_id, name, email, password, role):
+def register(name, email, password, role):
     connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
 
     try:
         cursor.execute(
-            "INSERT INTO users (user_id, name, email, password, role) VALUES (?, ?, ?, ?, ?)",
-            (user_id, name, email, password, role)
+            """
+            INSERT INTO users (name, email, password, role)
+            VALUES (?, ?, ?, ?)
+            """,
+            (name, email, password, role)
         )
 
         connection.commit()
         return True, "Registration successful!"
 
     except sqlite3.IntegrityError:
-        return False, "Email or User ID already exists!"
+        return False, "Email already exists!"
 
     finally:
         connection.close()
@@ -33,7 +36,10 @@ def login(email, password):
     cursor = connection.cursor()
 
     cursor.execute(
-        "SELECT * FROM users WHERE email = ? AND password = ?",
+        """
+        SELECT * FROM users
+        WHERE email = ? AND password = ?
+        """,
         (email, password)
     )
 

@@ -1,49 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Register - Local Farmers Marketplace</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    rgba(244, 248, 241, 0.92),
+                    rgba(244, 248, 241, 0.92)
+                ),
+                url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 15px;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 470px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 45px;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            color: #2e7d32;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #43a047;
+        }
+
+        .role-info {
+            background: #f1f8f2;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+
+            background: #43a047;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .register-button:hover {
+            background: #2e7d32;
+        }
+
+        .login-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .login-section p {
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 11px 28px;
+            border-radius: 8px;
+
+            background: #e8f5e9;
+            color: #2e7d32;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-button:hover {
+            background: #c8e6c9;
+        }
+
+        .home-link {
+            display: block;
+            margin-top: 20px;
+            color: #2e7d32;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+
+            .register-card {
+                padding: 30px 22px;
+            }
+
+            .title {
+                font-size: 25px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>🌱 Local Farmers Marketplace</h1>
+    <div class="register-card">
 
-    <h2>Create Account</h2>
+        <div class="logo">🌱</div>
 
-    <form method="POST">
-        <label>User ID:</label>
-        <input type="number" name="user_id" required>
-        <br><br>
+        <h1 class="title">
+            Join the Marketplace
+        </h1>
 
-        <label>Name:</label>
-        <input type="text" name="name" required>
-        <br><br>
+        <p class="subtitle">
+            Create your account and become part of our
+            local farming community.
+        </p>
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <br><br>
 
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <br><br>
+        <form method="POST">
 
-        <label>Role:</label>
-        <select name="role">
-            <option value="Farmer">Farmer</option>
-            <option value="Customer">Customer</option>
-        </select>
-        <br><br>
+            <div class="form-group">
 
-        <button type="submit">Register</button>
+                <label for="name">
+                    👤 Full Name
+                </label>
 
-    </form>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
 
-    <p>Already have an account?</p>
+            </div>
 
-    <a href="/login">
-        <button type="button">Login</button>
-    </a>
+
+            <div class="form-group">
+
+                <label for="email">
+                    📧 Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    🔐 Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="role">
+                    👥 Account Type
+                </label>
+
+                <select name="role" id="role">
+
+                    <option value="Farmer">
+                        👨‍🌾 Farmer
+                    </option>
+
+                    <option value="Customer">
+                        🛒 Customer
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="role-info">
+
+                👨‍🌾 <strong>Farmer:</strong>
+                Add and manage your farm products.
+
+                <br>
+
+                🛒 <strong>Customer:</strong>
+                Browse and purchase fresh farm products.
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-button"
+            >
+                🌱 Create Account
+            </button>
+
+        </form>
+
+
+        <div class="login-section">
+
+            <p>
+                Already have an account?
+            </p>
+
+            <a
+                href="/login"
+                class="login-button"
+            >
+                🔐 Login
+            </a>
+
+        </div>
+
+
+        <a
+            href="/"
+            class="home-link"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
 
 </body>
+
 </html>

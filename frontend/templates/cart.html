@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart - Local Farmers Marketplace</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f1;
+            color: #263b2a;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .cart-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cart-title h2 {
+            color: #2e7d32;
+            font-size: 30px;
+        }
+
+        .cart-title p {
+            margin-top: 8px;
+            color: #666;
+        }
+
+        .cart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+
+            display: grid;
+            grid-template-columns: 130px 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .product-image {
+            width: 130px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-info h3 {
+            color: #2e7d32;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .category {
+            display: inline-block;
+
+            background: #e8f5e9;
+            color: #2e7d32;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #1b5e20;
+
+            margin-top: 5px;
+        }
+
+        .price-unit {
+            font-weight: normal;
+            color: #666;
+        }
+
+
+        /* =====================================================
+           QUANTITY CONTROLS
+        ===================================================== */
+
+        .quantity-section {
+            margin-top: 12px;
+        }
+
+        .quantity-label {
+            color: #555;
+
+            font-size: 14px;
+
+            margin-bottom: 7px;
+        }
+
+        .quantity-controls {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .quantity-button {
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .decrease-button {
+            background: #757575;
+        }
+
+        .decrease-button:hover {
+            background: #555555;
+        }
+
+        .increase-button {
+            background: #2e7d32;
+        }
+
+        .increase-button:hover {
+            background: #1b5e20;
+        }
+
+        .quantity-number {
+            min-width: 40px;
+
+            text-align: center;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        .quantity-unit {
+            color: #666;
+
+            font-size: 14px;
+
+            font-weight: normal;
+        }
+
+
+        /* =====================================================
+           REMOVE BUTTON
+        ===================================================== */
+
+        .remove-form {
+            margin-top: 10px;
+        }
+
+        .remove-button {
+            border: none;
+
+            background: #e53935;
+
+            color: white;
+
+            padding: 8px 14px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background: #c62828;
+        }
+
+
+        /* =====================================================
+           SUBTOTAL
+        ===================================================== */
+
+        .subtotal {
+            text-align: right;
+        }
+
+        .subtotal-label {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+        .subtotal-value {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #2e7d32;
+        }
+
+
+        /* =====================================================
+           CART SUMMARY
+        ===================================================== */
+
+        .cart-summary {
+            background: white;
+
+            margin-top: 30px;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+
+            text-align: right;
+        }
+
+        .total-label {
+            color: #666;
+
+            font-size: 16px;
+        }
+
+        .total-amount {
+            font-size: 32px;
+
+            font-weight: bold;
+
+            color: #1b5e20;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           MAIN BUTTONS
+        ===================================================== */
+
+        .buttons {
+            margin-top: 25px;
+
+            display: flex;
+
+            gap: 12px;
+
+            justify-content: flex-end;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: bold;
+        }
+
+        .continue-button {
+            background: #555;
+        }
+
+        .continue-button:hover {
+            background: #333;
+        }
+
+        .checkout-button {
+            background: #2e7d32;
+        }
+
+        .checkout-button:hover {
+            background: #1b5e20;
+        }
+
+
+        /* =====================================================
+           EMPTY CART
+        ===================================================== */
+
+        .empty-cart {
+            background: white;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.10);
+        }
+
+        .empty-cart h2 {
+            color: #2e7d32;
+
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            color: #666;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .cart-item {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+            }
+
+            .product-image {
+                width: 100%;
+
+                height: 200px;
+            }
+
+            .quantity-controls {
+                justify-content: center;
+            }
+
+            .remove-form {
+                text-align: center;
+            }
+
+            .subtotal {
+                text-align: center;
+            }
+
+            .cart-summary {
+                text-align: center;
+            }
+
+            .buttons {
+                justify-content: center;
+
+                flex-direction: column;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <h1>
+            🌱 Local Farmers Marketplace
+        </h1>
+
+        <p>
+            Fresh produce directly from local farmers
+        </p>
+
+    </header>
+
+
+
+    <div class="container">
+
+
+        <div class="cart-title">
+
+            <h2>
+                🛒 My Shopping Cart
+            </h2>
+
+            <p>
+                Review the fresh products you selected.
+            </p>
+
+        </div>
+
+
+
+        {% if cart_items %}
+
+
+            <div class="cart-list">
+
+
+                {% for item in cart_items %}
+
+
+                    <div class="cart-item">
+
+
+                        <!-- =================================================
+                             PRODUCT IMAGE
+                        ================================================= -->
+
+                        <div>
+
+                            {% if item.product[7] %}
+
+                                <img
+                                    class="product-image"
+                                    src="{{ url_for('static', filename='uploads/' + item.product[7]) }}"
+                                    alt="{{ item.product[1] }}"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    class="product-image"
+                                    src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
+                                    alt="Farm Product"
+                                >
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PRODUCT INFORMATION
+                        ================================================= -->
+
+                        <div class="product-info">
+
+
+                            <h3>
+                                {{ item.product[1] }}
+                            </h3>
+
+
+
+                            <span class="category">
+
+                                🌿 {{ item.product[2] }}
+
+                            </span>
+
+
+
+                            <!-- PRICE -->
+
+                            <div class="price">
+
+                                ₹{{ item.product[3] }}
+
+                                <span class="price-unit">
+
+                                    / {{ item.product[5] }}
+
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- =================================================
+                                 QUANTITY CONTROLS
+                            ================================================= -->
+
+                            <div class="quantity-section">
+
+
+                                <div class="quantity-label">
+
+                                    📦 Quantity
+
+                                </div>
+
+
+
+                                <div class="quantity-controls">
+
+
+                                    <!-- DECREASE -->
+
+                                    <form
+                                        action="{{ url_for('decrease_cart', product_id=item.product[0]) }}"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="quantity-button decrease-button"
+                                        >
+
+                                            −
+
+                                        </button>
+
+                                    </form>
+
+
+
+                                    <!-- CURRENT QUANTITY -->
+
+                                    <span class="quantity-number">
+
+                                        {{ item.quantity }}
+
+                                    </span>
+
+
+                                    <span class="quantity-unit">
+
+                                        {{ item.product[5] }}
+
+                                    </span>
+
+
+
+                                    <!-- INCREASE -->
+
+                                    <form
+                                        action="{{ url_for('increase_cart', product_id=item.product[0]) }}"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="quantity-button increase-button"
+                                        >
+
+                                            +
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+
+
+                                <!-- REMOVE -->
+
+                                <form
+                                    action="{{ url_for('remove_from_cart', product_id=item.product[0]) }}"
+                                    method="POST"
+                                    class="remove-form"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="remove-button"
+                                    >
+
+                                        🗑️ Remove
+
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             SUBTOTAL
+                        ================================================= -->
+
+                        <div class="subtotal">
+
+
+                            <div class="subtotal-label">
+
+                                Subtotal
+
+                            </div>
+
+
+                            <div class="subtotal-value">
+
+                                ₹{{ item.subtotal }}
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+
+            <!-- =========================================================
+                 CART SUMMARY
+            ========================================================= -->
+
+            <div class="cart-summary">
+
+
+                <div class="total-label">
+
+                    Total Amount
+
+                </div>
+
+
+                <div class="total-amount">
+
+                    ₹{{ total_amount }}
+
+                </div>
+
+
+
+                <div class="buttons">
+
+
+                    <a
+                        href="{{ url_for('products_page') }}"
+                        class="button continue-button"
+                    >
+
+                        ← Continue Shopping
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        class="button checkout-button"
+                    >
+
+                        Proceed to Checkout →
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =========================================================
+                 EMPTY CART
+            ========================================================= -->
+
+            <div class="empty-cart">
+
+
+                <h2>
+
+                    🛒 Your Cart is Empty
+
+                </h2>
+
+
+                <p>
+
+                    You haven't added any products yet.
+
+                </p>
+
+
+                <a
+                    href="{{ url_for('products_page') }}"
+                    class="button checkout-button"
+                >
+
+                    🌱 Browse Products
+
+                </a>
+
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+
+</html>

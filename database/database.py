@@ -18,6 +18,17 @@ def create_tables():
     connection = get_connection()
     cursor = connection.cursor()
 
+    # Users table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL,
+            role TEXT NOT NULL DEFAULT 'customer'
+        )
+    """)
+
     # Categories table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS categories (
@@ -26,6 +37,41 @@ def create_tables():
             description TEXT
         )
     """)
+
+    # Products table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS products (
+            product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            product_name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            price REAL NOT NULL,
+            quantity INTEGER NOT NULL,
+            farmer_id INTEGER NOT NULL,
+            FOREIGN KEY (farmer_id) REFERENCES users(id)
+        )
+    """)
+
+    # Check existing product columns
+    cursor.execute("PRAGMA table_info(products)")
+    columns = [column[1] for column in cursor.fetchall()]
+
+    # Add image column if it does not exist
+    if "image" not in columns:
+        cursor.execute("""
+            ALTER TABLE products
+            ADD COLUMN image TEXT
+        """)
+
+        print("Image column added to products table.")
+
+    # Add unit column if it does not exist
+    if "unit" not in columns:
+        cursor.execute("""
+            ALTER TABLE products
+            ADD COLUMN unit TEXT NOT NULL DEFAULT 'kg'
+        """)
+
+        print("Unit column added to products table.")
 
     # Orders table
     cursor.execute("""

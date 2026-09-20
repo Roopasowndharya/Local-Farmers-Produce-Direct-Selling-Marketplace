@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product[1] }} - Product Details</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8f1;
+            color: #263b2a;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .product-details {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .product-image-section {
+            background: #e8f5e9;
+            min-height: 450px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            min-height: 450px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .product-info {
+            padding: 40px;
+        }
+
+        .product-info h2 {
+            font-size: 34px;
+            color: #2e7d32;
+
+            margin-bottom: 15px;
+        }
+
+        .category {
+            display: inline-block;
+
+            background: #e8f5e9;
+            color: #2e7d32;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: bold;
+
+            color: #1b5e20;
+
+            margin-bottom: 25px;
+        }
+
+        .price-unit {
+            font-size: 17px;
+            font-weight: normal;
+            color: #666;
+        }
+
+        .info-box {
+            border-top: 1px solid #eeeeee;
+
+            padding: 15px 0;
+
+            font-size: 16px;
+        }
+
+        .info-label {
+            color: #777;
+
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        .available {
+            color: #2e7d32;
+        }
+
+
+        /* =====================================================
+           ADD TO CART BUTTON
+        ===================================================== */
+
+        .cart-form {
+            margin-top: 25px;
+        }
+
+        .cart-button {
+            width: 100%;
+
+            border: none;
+
+            background: #ff9800;
+            color: white;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .cart-button:hover {
+            background: #f57c00;
+        }
+
+        .cart-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-button {
+            display: inline-block;
+
+            width: 100%;
+
+            text-align: center;
+
+            background: #2e7d32;
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            margin-top: 12px;
+        }
+
+        .back-button:hover {
+            background: #1b5e20;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer-note {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 750px) {
+
+            .product-details {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-section {
+                min-height: 300px;
+            }
+
+            .product-image {
+                min-height: 300px;
+            }
+
+            .product-info {
+                padding: 30px 25px;
+            }
+
+            .product-info h2 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <h1>
+            🌱 Local Farmers Marketplace
+        </h1>
+
+        <p>
+            Fresh produce directly from local farmers
+        </p>
+
+    </header>
+
+
+
+    <div class="container">
+
+
+        <div class="product-details">
+
+
+            <!-- =================================================
+                 PRODUCT IMAGE
+            ================================================= -->
+
+            <div class="product-image-section">
+
+                {% if product[7] %}
+
+                    <img
+                        class="product-image"
+                        src="{{ url_for('static', filename='uploads/' + product[7]) }}"
+                        alt="{{ product[1] }}"
+                    >
+
+                {% else %}
+
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=80"
+                        alt="Farm Product"
+                    >
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCT INFORMATION
+            ================================================= -->
+
+            <div class="product-info">
+
+
+                <!-- PRODUCT NAME -->
+
+                <h2>
+                    {{ product[1] }}
+                </h2>
+
+
+
+                <!-- CATEGORY -->
+
+                <span class="category">
+
+                    🌿 {{ product[2] }}
+
+                </span>
+
+
+
+                <!-- PRICE -->
+
+                <div class="price">
+
+                    ₹{{ product[3] }}
+
+                    <span class="price-unit">
+
+                        / {{ product[5] }}
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     AVAILABLE QUANTITY
+                ================================================= -->
+
+                <div class="info-box">
+
+                    <div class="info-label">
+
+                        📦 Available Quantity
+
+                    </div>
+
+                    <div class="info-value available">
+
+                        {{ product[4] }} {{ product[5] }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FARMER
+                ================================================= -->
+
+                <div class="info-box">
+
+                    <div class="info-label">
+
+                        👨‍🌾 Farmer
+
+                    </div>
+
+                    <div class="info-value">
+
+                        Farmer #{{ product[6] }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT ID
+                ================================================= -->
+
+                <div class="info-box">
+
+                    <div class="info-label">
+
+                        🆔 Product ID
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ product[0] }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADD TO CART
+                ================================================= -->
+
+                {% if product[4] > 0 %}
+
+                    <form
+                        action="{{ url_for('add_to_cart', product_id=product[0]) }}"
+                        method="POST"
+                        class="cart-form"
+                    >
+
+                        <button
+                            type="submit"
+                            class="cart-button"
+                        >
+
+                            🛒 Add to Cart
+
+                        </button>
+
+                    </form>
+
+                {% else %}
+
+                    <button
+                        class="cart-button"
+                        disabled
+                    >
+
+                        ❌ Out of Stock
+
+                    </button>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     BACK TO PRODUCTS
+                ================================================= -->
+
+                <a
+                    href="{{ url_for('products_page') }}"
+                    class="back-button"
+                >
+
+                    ← Back to Products
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER NOTE -->
+
+        <div class="footer-note">
+
+            🌱 Supporting local farmers through direct selling
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
