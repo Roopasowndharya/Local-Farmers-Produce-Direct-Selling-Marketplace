@@ -26,6 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Initialize database
+        run: |
+          python database/database.py
+
       - name: Check Python files
         run: |
           python -m compileall backend database frontend models utils tests
