@@ -1,15 +1,8 @@
-import sqlite3
-import os
-
-# Get absolute path to project root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Database path
-DB_PATH = os.path.join(BASE_DIR, "database", "farmers.db")
+from database.database import get_connection
 
 
 def register(name, email, password, role):
-    connection = sqlite3.connect(DB_PATH)
+    connection = get_connection()
     cursor = connection.cursor()
 
     try:
@@ -24,26 +17,31 @@ def register(name, email, password, role):
         connection.commit()
         return True, "Registration successful!"
 
-    except sqlite3.IntegrityError:
-        return False, "Email already exists!"
+    except Exception as error:
+        if "UNIQUE constraint failed" in str(error):
+            return False, "Email already exists!"
+
+        return False, str(error)
 
     finally:
         connection.close()
 
 
 def login(email, password):
-    connection = sqlite3.connect(DB_PATH)
+    connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(
         """
-        SELECT * FROM users
+        SELECT *
+        FROM users
         WHERE email = ? AND password = ?
         """,
         (email, password)
     )
 
     user = cursor.fetchone()
+
     connection.close()
 
     if user:
