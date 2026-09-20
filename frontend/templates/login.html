@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login - Local Farmers Marketplace</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -47,7 +49,8 @@
 
             text-align: center;
 
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .logo {
@@ -57,36 +60,71 @@
 
         .title {
             color: #2e7d32;
+
             font-size: 30px;
+
             margin-bottom: 8px;
         }
 
         .subtitle {
             color: #666;
+
             font-size: 15px;
-            margin-bottom: 28px;
+
+            margin-bottom: 22px;
+
+            line-height: 1.5;
+        }
+
+        /* Login Error Message */
+
+        .error-message {
+            background: #ffebee;
+
+            color: #c62828;
+
+            border: 1px solid #ef9a9a;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+
+            text-align: left;
         }
 
         .form-group {
             text-align: left;
+
             margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
+
             color: #333;
+
             font-weight: bold;
+
             margin-bottom: 7px;
         }
 
         .form-group input {
             width: 100%;
+
             padding: 12px;
 
             border: 1px solid #ccc;
+
             border-radius: 8px;
 
             font-size: 15px;
+
             outline: none;
         }
 
@@ -94,35 +132,55 @@
             border-color: #43a047;
         }
 
-        /* Password field */
+
+        /* Password Field */
 
         .password-container {
             position: relative;
+
+            width: 100%;
         }
 
         .password-container input {
-            padding-right: 45px;
+            padding-right: 48px;
         }
 
         .toggle-password {
+
             position: absolute;
 
-            right: 12px;
+            right: 10px;
             top: 50%;
 
             transform: translateY(-50%);
 
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             border: none;
-            background: none;
+
+            background: transparent;
 
             cursor: pointer;
 
-            font-size: 18px;
+            font-size: 19px;
+
+            padding: 0;
         }
 
-        /* Forgot password */
+        .toggle-password:hover {
+            transform: translateY(-50%) scale(1.08);
+        }
+
+
+        /* Forgot Password */
 
         .forgot-password {
+
             display: block;
 
             text-align: right;
@@ -140,20 +198,25 @@
             text-decoration: underline;
         }
 
-        /* Login button */
+
+        /* Login Button */
 
         .login-button {
+
             width: 100%;
 
             padding: 13px;
 
             border: none;
+
             border-radius: 8px;
 
             background: #43a047;
+
             color: white;
 
             font-size: 16px;
+
             font-weight: bold;
 
             cursor: pointer;
@@ -165,9 +228,11 @@
             background: #2e7d32;
         }
 
-        /* Register */
+
+        /* Register Section */
 
         .register-section {
+
             margin-top: 25px;
 
             padding-top: 20px;
@@ -176,11 +241,14 @@
         }
 
         .register-section p {
+
             color: #666;
+
             margin-bottom: 12px;
         }
 
         .register-button {
+
             display: inline-block;
 
             padding: 11px 28px;
@@ -188,6 +256,7 @@
             border-radius: 8px;
 
             background: #e8f5e9;
+
             color: #2e7d32;
 
             text-decoration: none;
@@ -199,9 +268,11 @@
             background: #c8e6c9;
         }
 
-        /* Home */
+
+        /* Home Link */
 
         .home-link {
+
             display: block;
 
             margin-top: 20px;
@@ -217,6 +288,9 @@
             text-decoration: underline;
         }
 
+
+        /* Mobile */
+
         @media (max-width: 500px) {
 
             .login-card {
@@ -226,28 +300,55 @@
             .title {
                 font-size: 25px;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
     <div class="login-card">
 
+
+        <!-- Logo -->
+
         <div class="logo">
             🌱
         </div>
 
+
+        <!-- Title -->
+
         <h1 class="title">
             Welcome Back!
         </h1>
+
+
+        <!-- Subtitle -->
 
         <p class="subtitle">
             Login to your Local Farmers Marketplace account.
         </p>
 
 
+        <!-- Login Error Message -->
+
+        {% if error %}
+
+            <div class="error-message">
+                ⚠️ {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- Login Form -->
+
         <form method="POST">
+
 
             <!-- Email -->
 
@@ -276,6 +377,7 @@
                     🔐 Password
                 </label>
 
+
                 <div class="password-container">
 
                     <input
@@ -286,25 +388,33 @@
                         required
                     >
 
+
                     <button
                         type="button"
                         class="toggle-password"
                         onclick="togglePassword()"
                         id="toggleButton"
+                        aria-label="Show password"
                     >
                         👁️
                     </button>
 
                 </div>
 
-                <a href="#" class="forgot-password">
+
+                <!-- Forgot Password -->
+
+                <a
+                    href="#"
+                    class="forgot-password"
+                >
                     Forgot Password?
                 </a>
 
             </div>
 
 
-            <!-- Login -->
+            <!-- Login Button -->
 
             <button
                 type="submit"
@@ -313,16 +423,18 @@
                 🔐 Login
             </button>
 
+
         </form>
 
 
-        <!-- Register -->
+        <!-- Register Section -->
 
         <div class="register-section">
 
             <p>
                 Don't have an account?
             </p>
+
 
             <a
                 href="/register"
@@ -342,6 +454,7 @@
         >
             ← Back to Home
         </a>
+
 
     </div>
 
@@ -365,17 +478,28 @@
 
                 toggleButton.textContent = "🙈";
 
+                toggleButton.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
             } else {
 
                 password.type = "password";
 
                 toggleButton.textContent = "👁️";
 
+                toggleButton.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
             }
 
         }
 
     </script>
+
 
 </body>
 

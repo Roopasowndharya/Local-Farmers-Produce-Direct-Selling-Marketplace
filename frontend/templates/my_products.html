@@ -1,199 +1,258 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>My Products | Local Farmers Marketplace</title>
+<title>My Products | Local Farmers Marketplace</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f8f1;
-            color: #263b25;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f8f1;
+        color: #263b25;
+    }
+
+    header {
+        background: #2f6b3f;
+        color: white;
+        padding: 22px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .back-btn {
+        text-decoration: none;
+        color: white;
+        border: 1px solid white;
+        padding: 9px 16px;
+        border-radius: 8px;
+    }
+
+    .back-btn:hover {
+        background: white;
+        color: #2f6b3f;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto;
+    }
+
+    .heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .heading h2 {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .heading p {
+        color: #667466;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+
+        gap: 25px;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+
+        box-shadow:
+            0 5px 18px rgba(0, 0, 0, 0.08);
+
+        transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .product-info {
+        padding: 20px;
+    }
+
+    .product-info h3 {
+        font-size: 21px;
+        margin-bottom: 10px;
+        color: #263b25;
+    }
+
+    .category {
+        color: #6d806d;
+        margin-bottom: 8px;
+    }
+
+    .price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2f6b3f;
+        margin-bottom: 6px;
+    }
+
+    .quantity {
+        color: #657065;
+        margin-bottom: 6px;
+    }
+
+    .unit {
+        color: #657065;
+        margin-bottom: 18px;
+    }
+
+    .update-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+
+        background: #2f6b3f;
+        color: white;
+
+        padding: 11px;
+        border-radius: 9px;
+
+        font-weight: bold;
+    }
+
+    .update-btn:hover {
+        background: #245431;
+    }
+
+    .empty {
+        text-align: center;
+        background: white;
+        padding: 50px;
+        border-radius: 16px;
+
+        box-shadow:
+            0 5px 18px rgba(0, 0, 0, 0.07);
+    }
+
+    .empty h3 {
+        margin-bottom: 10px;
+        color: #2f6b3f;
+    }
+
+    .empty p {
+        color: #667466;
+    }
+
+    .empty a {
+        display: inline-block;
+        margin-top: 20px;
+
+        background: #2f6b3f;
+        color: white;
+
+        text-decoration: none;
+
+        padding: 11px 20px;
+        border-radius: 9px;
+    }
+
+    .empty a:hover {
+        background: #245431;
+    }
+
+    @media (max-width: 600px) {
 
         header {
-            background: #2f6b3f;
-            color: white;
-            padding: 22px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 18px 5%;
         }
 
         header h1 {
-            font-size: 24px;
-        }
-
-        .back-btn {
-            text-decoration: none;
-            color: white;
-            border: 1px solid white;
-            padding: 9px 16px;
-            border-radius: 8px;
+            font-size: 20px;
         }
 
         .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 40px auto;
-        }
-
-        .heading {
-            text-align: center;
-            margin-bottom: 30px;
+            width: 94%;
+            margin: 25px auto;
         }
 
         .heading h2 {
-            font-size: 32px;
-            margin-bottom: 8px;
+            font-size: 26px;
         }
 
-        .heading p {
-            color: #667466;
-        }
+    }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(250px, 1fr));
-
-            gap: 25px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow:
-                0 5px 18px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-info h3 {
-            font-size: 21px;
-            margin-bottom: 10px;
-        }
-
-        .category {
-            color: #6d806d;
-            margin-bottom: 8px;
-        }
-
-        .price {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2f6b3f;
-            margin-bottom: 6px;
-        }
-
-        .quantity {
-            color: #657065;
-            margin-bottom: 18px;
-        }
-
-        .update-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            text-decoration: none;
-            background: #2f6b3f;
-            color: white;
-            padding: 11px;
-            border-radius: 9px;
-            font-weight: bold;
-        }
-
-        .update-btn:hover {
-            background: #245431;
-        }
-
-        .empty {
-            text-align: center;
-            background: white;
-            padding: 50px;
-            border-radius: 16px;
-            box-shadow:
-                0 5px 18px rgba(0, 0, 0, 0.07);
-        }
-
-        .empty h3 {
-            margin-bottom: 10px;
-        }
-
-        .empty a {
-            display: inline-block;
-            margin-top: 20px;
-            background: #2f6b3f;
-            color: white;
-            text-decoration: none;
-            padding: 11px 20px;
-            border-radius: 9px;
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
-
 
 <header>
 
-    <h1>🌱 My Products</h1>
+```
+<h1>🌱 My Products</h1>
 
-    <a href="{{ url_for('dashboard') }}"
-       class="back-btn">
-        Dashboard
-    </a>
+<a
+    href="{{ url_for('dashboard') }}"
+    class="back-btn"
+>
+    Dashboard
+</a>
+```
 
 </header>
 
-
 <div class="container">
 
+```
+<div class="heading">
 
-    <div class="heading">
+    <h2>
+        Manage Your Products
+    </h2>
 
-        <h2>Manage Your Products</h2>
+    <p>
+        Update product photos and keep your marketplace
+        listings attractive and up to date.
+    </p>
 
-        <p>
-            Update product photos and keep your marketplace
-            listings attractive and up to date.
-        </p>
-
-    </div>
+</div>
 
 
-    {% if products %}
+{% if products %}
 
 
     <div class="products-grid">
@@ -202,70 +261,103 @@
         {% for product in products %}
 
 
-        <div class="product-card">
+            <div class="product-card">
 
 
-            {% if product[6] %}
+                <!-- Product Image -->
 
-                <img
-                    class="product-image"
-                    src="{{ url_for(
-                        'static',
-                        filename='uploads/' + product[6]
-                    ) }}"
-                    alt="{{ product[1] }}"
-                >
+                {% if product[7] %}
 
-            {% else %}
+                    <img
+                        class="product-image"
+                        src="{{ url_for(
+                            'static',
+                            filename='uploads/' + product[7]
+                        ) }}"
+                        alt="{{ product[1] }}"
+                    >
 
-                <img
-                    class="product-image"
-                    src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
-                    alt="Farm Product"
-                >
+                {% else %}
 
-            {% endif %}
+                    <img
+                        class="product-image"
+                        src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80"
+                        alt="Farm Product"
+                    >
 
-
-            <div class="product-info">
-
-
-                <h3>
-                    {{ product[1] }}
-                </h3>
+                {% endif %}
 
 
-                <p class="category">
-                    Category: {{ product[2] }}
-                </p>
+                <div class="product-info">
 
 
-                <p class="price">
-                    ₹{{ product[3] }}
-                </p>
+                    <!-- Product Name -->
+
+                    <h3>
+                        {{ product[1] }}
+                    </h3>
 
 
-                <p class="quantity">
-                    Available Quantity:
-                    {{ product[4] }}
-                </p>
+                    <!-- Category -->
+
+                    <p class="category">
+
+                        Category:
+                        {{ product[2] }}
+
+                    </p>
 
 
-                <a
-                    href="{{ url_for(
-                        'update_product_photo',
-                        product_id=product[0]
-                    ) }}"
-                    class="update-btn"
-                >
-                    📷 Update Product Photo
-                </a>
+                    <!-- Price -->
+
+                    <p class="price">
+
+                        ₹{{ "%.2f"|format(product[3]) }}
+
+                        / {{ product[5] }}
+
+                    </p>
+
+
+                    <!-- Quantity -->
+
+                    <p class="quantity">
+
+                        Available Quantity:
+                        {{ product[4] }}
+
+                    </p>
+
+
+                    <!-- Unit -->
+
+                    <p class="unit">
+
+                        Unit:
+                        {{ product[5] }}
+
+                    </p>
+
+
+                    <!-- Update Photo -->
+
+                    <a
+                        href="{{ url_for(
+                            'update_product_photo',
+                            product_id=product[0]
+                        ) }}"
+                        class="update-btn"
+                    >
+
+                        📷 Update Product Photo
+
+                    </a>
+
+
+                </div>
 
 
             </div>
-
-
-        </div>
 
 
         {% endfor %}
@@ -274,29 +366,32 @@
     </div>
 
 
-    {% else %}
+{% else %}
 
 
     <div class="empty">
 
-        <h3>No Products Added Yet 🌱</h3>
+        <h3>
+            No Products Added Yet 🌱
+        </h3>
 
         <p>
             You haven't added any products to the marketplace.
         </p>
 
-        <a href="{{ url_for('add_product_page') }}">
+        <a
+            href="{{ url_for('add_product_page') }}"
+        >
             Add Your First Product
         </a>
 
     </div>
 
 
-    {% endif %}
-
+{% endif %}
+```
 
 </div>
-
 
 </body>
 

@@ -1,432 +1,490 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard - Local Farmers Marketplace</title>
+```
+<title>Dashboard - Local Farmers Marketplace</title>
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
 
-        body {
-            min-height: 100vh;
-            background: #f4f8f1;
-            color: #263b2a;
-        }
+    body {
+        min-height: 100vh;
+        background: #f4f8f1;
+        color: #263b2a;
+    }
 
-        /* Header */
+    /* Header */
 
-        .header {
-            background: linear-gradient(135deg, #2e7d32, #66bb6a);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
+    .header {
+        background: linear-gradient(135deg, #2e7d32, #66bb6a);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .header p {
+        font-size: 16px;
+    }
+
+    /* Main */
+
+    .container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 40px auto;
+    }
+
+    /* Welcome Card */
+
+    .welcome-card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+    }
+
+    .welcome-icon {
+        font-size: 45px;
+        margin-bottom: 10px;
+    }
+
+    .welcome-card h2 {
+        color: #2e7d32;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .role {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 7px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+
+    /* Dashboard Title */
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+        color: #2e7d32;
+        font-size: 27px;
+        margin-bottom: 8px;
+    }
+
+    .section-title p {
+        color: #666;
+    }
+
+    /* Action Cards */
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .action-card {
+        background: white;
+        padding: 30px 25px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: 0.2s;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .action-icon {
+        font-size: 45px;
+        margin-bottom: 15px;
+    }
+
+    .action-card h3 {
+        color: #2e7d32;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .action-card p {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    /* Buttons */
+
+    .action-button {
+        display: inline-block;
+        background: #43a047;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .action-button:hover {
+        background: #2e7d32;
+    }
+
+    /* Logout */
+
+    .logout-section {
+        text-align: center;
+        margin: 35px 0;
+    }
+
+    .logout-button {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 12px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .logout-button:hover {
+        background: #c8e6c9;
+    }
+
+    /* Footer */
+
+    footer {
+        background: #1b5e20;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    footer p {
+        margin: 5px;
+        font-size: 14px;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
 
         .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 25px;
         }
-
-        .header p {
-            font-size: 16px;
-        }
-
-        /* Main */
 
         .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 40px auto;
+            width: 94%;
         }
-
-        /* Welcome Card */
 
         .welcome-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
+            padding: 25px 15px;
         }
 
-        .welcome-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
+    }
 
-        .welcome-card h2 {
-            color: #2e7d32;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .role {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 7px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        /* Dashboard Title */
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .section-title h2 {
-            color: #2e7d32;
-            font-size: 27px;
-            margin-bottom: 8px;
-        }
-
-        .section-title p {
-            color: #666;
-        }
-
-        /* Action Cards */
-
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .action-card {
-            background: white;
-            padding: 30px 25px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: 0.2s;
-        }
-
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .action-icon {
-            font-size: 45px;
-            margin-bottom: 15px;
-        }
-
-        .action-card h3 {
-            color: #2e7d32;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .action-card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Buttons */
-
-        .action-button {
-            display: inline-block;
-            background: #43a047;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .action-button:hover {
-            background: #2e7d32;
-        }
-
-        /* Logout */
-
-        .logout-section {
-            text-align: center;
-            margin: 35px 0;
-        }
-
-        .logout-button {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .logout-button:hover {
-            background: #c8e6c9;
-        }
-
-        /* Footer */
-
-        footer {
-            background: #1b5e20;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        footer p {
-            margin: 5px;
-            font-size: 14px;
-        }
-
-        /* Mobile */
-
-        @media (max-width: 600px) {
-
-            .header h1 {
-                font-size: 25px;
-            }
-
-            .container {
-                width: 94%;
-            }
-
-            .welcome-card {
-                padding: 25px 15px;
-            }
-
-        }
-
-    </style>
+</style>
+```
 
 </head>
 
-
 <body>
 
+```
+<!-- Header -->
 
-    <!-- Header -->
+<div class="header">
 
-    <div class="header">
+    <h1>
+        🌱 Local Farmers Marketplace
+    </h1>
 
-        <h1>
-            🌱 Local Farmers Marketplace
-        </h1>
+    <p>
+        Connecting farmers and customers through direct selling
+    </p>
 
-        <p>
-            Connecting farmers and customers through direct selling
-        </p>
+</div>
+
+
+<!-- Main Content -->
+
+<div class="container">
+
+
+    <!-- Welcome -->
+
+    <div class="welcome-card">
+
+        <div class="welcome-icon">
+            👋
+        </div>
+
+        <h2>
+            Welcome, {{ name }}!
+        </h2>
+
+        <span class="role">
+
+            {% if role|lower == "farmer" %}
+
+                👨‍🌾 Farmer
+
+            {% elif role|lower == "customer" %}
+
+                🛒 Customer
+
+            {% else %}
+
+                {{ role }}
+
+            {% endif %}
+
+        </span>
 
     </div>
 
 
-    <!-- Main Content -->
+    <!-- Farmer Dashboard -->
 
-    <div class="container">
+    {% if role|lower == "farmer" %}
 
 
-        <!-- Welcome -->
-
-        <div class="welcome-card">
-
-            <div class="welcome-icon">
-                👋
-            </div>
+        <div class="section-title">
 
             <h2>
-                Welcome, {{ name }}!
+                👨‍🌾 Farmer Dashboard
             </h2>
 
-            <span class="role">
-
-                {% if role|lower == "farmer" %}
-
-                    👨‍🌾 Farmer
-
-                {% elif role|lower == "customer" %}
-
-                    🛒 Customer
-
-                {% else %}
-
-                    {{ role }}
-
-                {% endif %}
-
-            </span>
+            <p>
+                Manage your farm products and connect directly with customers.
+            </p>
 
         </div>
 
 
-        <!-- Farmer Dashboard -->
-
-        {% if role|lower == "farmer" %}
+        <div class="action-grid">
 
 
-            <div class="section-title">
+            <!-- Add Product -->
 
-                <h2>
-                    👨‍🌾 Farmer Dashboard
-                </h2>
+            <div class="action-card">
+
+                <div class="action-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    Add Product
+                </h3>
 
                 <p>
-                    Manage your farm products and connect directly with customers.
+                    List your fresh farm produce and make it available
+                    to customers through the marketplace.
                 </p>
 
-            </div>
-
-
-            <div class="action-grid">
-
-
-                <!-- Add Product -->
-
-                <div class="action-card">
-
-                    <div class="action-icon">
-                        🌱
-                    </div>
-
-                    <h3>
-                        Add Product
-                    </h3>
-
-                    <p>
-                        List your fresh farm produce and make it available
-                        to customers through the marketplace.
-                    </p>
-
-                    <a
-                        href="{{ url_for('add_product_page') }}"
-                        class="action-button"
-                    >
-                        ➕ Add Product
-                    </a>
-
-                </div>
-
-
-                <!-- My Products -->
-
-                <div class="action-card">
-
-                    <div class="action-icon">
-                        📦
-                    </div>
-
-                    <h3>
-                        My Products
-                    </h3>
-
-                    <p>
-                        View your listed products and update their photos
-                        to keep your marketplace listings attractive.
-                    </p>
-
-                    <a
-                        href="{{ url_for('my_products_page') }}"
-                        class="action-button"
-                    >
-                        📦 My Products
-                    </a>
-
-                </div>
-
+                <a
+                    href="{{ url_for('add_product_page') }}"
+                    class="action-button"
+                >
+                    ➕ Add Product
+                </a>
 
             </div>
 
 
-        <!-- Customer Dashboard -->
+            <!-- My Products -->
 
-        {% elif role|lower == "customer" %}
+            <div class="action-card">
 
+                <div class="action-icon">
+                    📦
+                </div>
 
-            <div class="section-title">
-
-                <h2>
-                    🛒 Customer Dashboard
-                </h2>
+                <h3>
+                    My Products
+                </h3>
 
                 <p>
-                    Discover fresh products directly from local farmers.
+                    View your listed products and update their photos
+                    to keep your marketplace listings attractive.
                 </p>
 
+                <a
+                    href="{{ url_for('my_products_page') }}"
+                    class="action-button"
+                >
+                    📦 My Products
+                </a>
+
             </div>
 
 
-            <div class="action-grid">
+            <!-- Customer Orders -->
 
+            <div class="action-card">
 
-                <div class="action-card">
-
-                    <div class="action-icon">
-                        🥕
-                    </div>
-
-                    <h3>
-                        Browse Products
-                    </h3>
-
-                    <p>
-                        Explore fresh fruits, vegetables and other farm
-                        products available from local farmers.
-                    </p>
-
-                    <a
-                        href="{{ url_for('products_page') }}"
-                        class="action-button"
-                    >
-                        🛒 Browse Products
-                    </a>
-
+                <div class="action-icon">
+                    🛍️
                 </div>
 
+                <h3>
+                    Customer Orders
+                </h3>
+
+                <p>
+                    View customer orders for your products and update
+                    the order status as you prepare the produce.
+                </p>
+
+                <a
+                    href="{{ url_for('farmer_orders_page') }}"
+                    class="action-button"
+                >
+                    🛍️ View Orders
+                </a>
 
             </div>
 
-
-        {% endif %}
-
-
-        <!-- Logout -->
-
-        <div class="logout-section">
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="logout-button"
-            >
-                🚪 Logout
-            </a>
 
         </div>
 
+
+    <!-- Customer Dashboard -->
+
+    {% elif role|lower == "customer" %}
+
+
+        <div class="section-title">
+
+            <h2>
+                🛒 Customer Dashboard
+            </h2>
+
+            <p>
+                Discover fresh products directly from local farmers.
+            </p>
+
+        </div>
+
+
+        <div class="action-grid">
+
+
+            <!-- Browse Products -->
+
+            <div class="action-card">
+
+                <div class="action-icon">
+                    🥕
+                </div>
+
+                <h3>
+                    Browse Products
+                </h3>
+
+                <p>
+                    Explore fresh fruits, vegetables and other farm
+                    products available from local farmers.
+                </p>
+
+                <a
+                    href="{{ url_for('products_page') }}"
+                    class="action-button"
+                >
+                    🛒 Browse Products
+                </a>
+
+            </div>
+
+
+            <!-- My Orders -->
+
+            <div class="action-card">
+
+                <div class="action-icon">
+                    📦
+                </div>
+
+                <h3>
+                    My Orders
+                </h3>
+
+                <p>
+                    View your previous orders, check their status,
+                    and see the products included in each order.
+                </p>
+
+                <a
+                    href="{{ url_for('orders_page') }}"
+                    class="action-button"
+                >
+                    📦 View My Orders
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+    <!-- Logout -->
+
+    <div class="logout-section">
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-button"
+        >
+            🚪 Logout
+        </a>
 
     </div>
 
 
-    <!-- Footer -->
+</div>
 
-    <footer>
 
-        <p>
-            🌱 Local Farmers Produce Direct-Selling Marketplace
-        </p>
+<!-- Footer -->
 
-        <p>
-            Connecting Farmers • Empowering Local Communities
-        </p>
+<footer>
 
-    </footer>
+    <p>
+        🌱 Local Farmers Produce Direct-Selling Marketplace
+    </p>
 
+    <p>
+        Connecting Farmers • Empowering Local Communities
+    </p>
+
+</footer>
+```
 
 </body>
 

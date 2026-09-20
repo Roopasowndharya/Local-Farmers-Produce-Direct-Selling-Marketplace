@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Placed Successfully</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Order Placed Successfully! 🎉</h1>
+
+        <p>
+            Thank you for shopping directly from local farmers.
+        </p>
+
+        <h2>Order ID: #{{ order_id }}</h2>
+
+        <p>
+            {{ message }}
+        </p>
+
+        <br>
+
+        <a href="{{ url_for('orders_page') }}">
+            View My Orders
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('products_page') }}">
+            Continue Shopping
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('dashboard') }}">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

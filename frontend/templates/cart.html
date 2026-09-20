@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,10 +118,7 @@
             color: #666;
         }
 
-
-        /* =====================================================
-           QUANTITY CONTROLS
-        ===================================================== */
+        /* QUANTITY CONTROLS */
 
         .quantity-section {
             margin-top: 12px;
@@ -128,17 +126,13 @@
 
         .quantity-label {
             color: #555;
-
             font-size: 14px;
-
             margin-bottom: 7px;
         }
 
         .quantity-controls {
             display: flex;
-
             align-items: center;
-
             gap: 8px;
         }
 
@@ -147,13 +141,10 @@
             height: 34px;
 
             border: none;
-
             border-radius: 7px;
 
             color: white;
-
             font-size: 20px;
-
             font-weight: bold;
 
             cursor: pointer;
@@ -177,11 +168,9 @@
 
         .quantity-number {
             min-width: 40px;
-
             text-align: center;
 
             font-size: 18px;
-
             font-weight: bold;
 
             color: #333;
@@ -189,16 +178,11 @@
 
         .quantity-unit {
             color: #666;
-
             font-size: 14px;
-
             font-weight: normal;
         }
 
-
-        /* =====================================================
-           REMOVE BUTTON
-        ===================================================== */
+        /* REMOVE BUTTON */
 
         .remove-form {
             margin-top: 10px;
@@ -208,7 +192,6 @@
             border: none;
 
             background: #e53935;
-
             color: white;
 
             padding: 8px 14px;
@@ -216,7 +199,6 @@
             border-radius: 7px;
 
             font-size: 13px;
-
             font-weight: bold;
 
             cursor: pointer;
@@ -226,10 +208,7 @@
             background: #c62828;
         }
 
-
-        /* =====================================================
-           SUBTOTAL
-        ===================================================== */
+        /* SUBTOTAL */
 
         .subtotal {
             text-align: right;
@@ -237,30 +216,22 @@
 
         .subtotal-label {
             color: #777;
-
             font-size: 14px;
-
             margin-bottom: 5px;
         }
 
         .subtotal-value {
             font-size: 22px;
-
             font-weight: bold;
-
             color: #2e7d32;
         }
 
-
-        /* =====================================================
-           CART SUMMARY
-        ===================================================== */
+        /* CART SUMMARY */
 
         .cart-summary {
             background: white;
 
             margin-top: 30px;
-
             padding: 25px;
 
             border-radius: 15px;
@@ -272,13 +243,11 @@
 
         .total-label {
             color: #666;
-
             font-size: 16px;
         }
 
         .total-amount {
             font-size: 32px;
-
             font-weight: bold;
 
             color: #1b5e20;
@@ -286,10 +255,7 @@
             margin-top: 8px;
         }
 
-
-        /* =====================================================
-           MAIN BUTTONS
-        ===================================================== */
+        /* MAIN BUTTONS */
 
         .buttons {
             margin-top: 25px;
@@ -313,6 +279,12 @@
             color: white;
 
             font-weight: bold;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-size: 16px;
         }
 
         .continue-button {
@@ -331,10 +303,7 @@
             background: #1b5e20;
         }
 
-
-        /* =====================================================
-           EMPTY CART
-        ===================================================== */
+        /* EMPTY CART */
 
         .empty-cart {
             background: white;
@@ -350,32 +319,25 @@
 
         .empty-cart h2 {
             color: #2e7d32;
-
             margin-bottom: 10px;
         }
 
         .empty-cart p {
             color: #666;
-
             margin-bottom: 25px;
         }
 
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        /* MOBILE */
 
         @media (max-width: 700px) {
 
             .cart-item {
                 grid-template-columns: 1fr;
-
                 text-align: center;
             }
 
             .product-image {
                 width: 100%;
-
                 height: 200px;
             }
 
@@ -397,12 +359,12 @@
 
             .buttons {
                 justify-content: center;
-
                 flex-direction: column;
             }
 
             .button {
                 text-align: center;
+                width: 100%;
             }
 
         }
@@ -411,9 +373,7 @@
 
 </head>
 
-
 <body>
-
 
     <header>
 
@@ -427,10 +387,7 @@
 
     </header>
 
-
-
     <div class="container">
-
 
         <div class="cart-title">
 
@@ -444,23 +401,15 @@
 
         </div>
 
-
-
         {% if cart_items %}
-
 
             <div class="cart-list">
 
-
                 {% for item in cart_items %}
-
 
                     <div class="cart-item">
 
-
-                        <!-- =================================================
-                             PRODUCT IMAGE
-                        ================================================= -->
+                        <!-- PRODUCT IMAGE -->
 
                         <div>
 
@@ -484,62 +433,37 @@
 
                         </div>
 
-
-
-                        <!-- =================================================
-                             PRODUCT INFORMATION
-                        ================================================= -->
+                        <!-- PRODUCT INFORMATION -->
 
                         <div class="product-info">
-
 
                             <h3>
                                 {{ item.product[1] }}
                             </h3>
 
-
-
                             <span class="category">
-
                                 🌿 {{ item.product[2] }}
-
                             </span>
-
-
-
-                            <!-- PRICE -->
 
                             <div class="price">
 
                                 ₹{{ item.product[3] }}
 
                                 <span class="price-unit">
-
                                     / {{ item.product[5] }}
-
                                 </span>
 
                             </div>
 
-
-
-                            <!-- =================================================
-                                 QUANTITY CONTROLS
-                            ================================================= -->
+                            <!-- QUANTITY CONTROLS -->
 
                             <div class="quantity-section">
 
-
                                 <div class="quantity-label">
-
                                     📦 Quantity
-
                                 </div>
 
-
-
                                 <div class="quantity-controls">
-
 
                                     <!-- DECREASE -->
 
@@ -552,31 +476,20 @@
                                             type="submit"
                                             class="quantity-button decrease-button"
                                         >
-
                                             −
-
                                         </button>
 
                                     </form>
 
-
-
                                     <!-- CURRENT QUANTITY -->
 
                                     <span class="quantity-number">
-
                                         {{ item.quantity }}
-
                                     </span>
-
 
                                     <span class="quantity-unit">
-
                                         {{ item.product[5] }}
-
                                     </span>
-
-
 
                                     <!-- INCREASE -->
 
@@ -589,17 +502,12 @@
                                             type="submit"
                                             class="quantity-button increase-button"
                                         >
-
                                             +
-
                                         </button>
 
                                     </form>
 
-
                                 </div>
-
-
 
                                 <!-- REMOVE -->
 
@@ -613,150 +521,105 @@
                                         type="submit"
                                         class="remove-button"
                                     >
-
                                         🗑️ Remove
-
                                     </button>
 
                                 </form>
 
-
                             </div>
-
 
                         </div>
 
-
-
-                        <!-- =================================================
-                             SUBTOTAL
-                        ================================================= -->
+                        <!-- SUBTOTAL -->
 
                         <div class="subtotal">
 
-
                             <div class="subtotal-label">
-
                                 Subtotal
-
                             </div>
-
 
                             <div class="subtotal-value">
-
                                 ₹{{ item.subtotal }}
-
                             </div>
-
 
                         </div>
 
-
                     </div>
-
 
                 {% endfor %}
 
-
             </div>
 
-
-
-            <!-- =========================================================
-                 CART SUMMARY
-            ========================================================= -->
+            <!-- CART SUMMARY -->
 
             <div class="cart-summary">
 
-
                 <div class="total-label">
-
                     Total Amount
-
                 </div>
-
 
                 <div class="total-amount">
-
                     ₹{{ total_amount }}
-
                 </div>
 
-
-
                 <div class="buttons">
-
 
                     <a
                         href="{{ url_for('products_page') }}"
                         class="button continue-button"
                     >
-
                         ← Continue Shopping
-
                     </a>
 
+                    <!-- REAL CHECKOUT -->
 
-
-                    <a
-                        href="#"
-                        class="button checkout-button"
+                    <form
+                        action="{{ url_for('checkout') }}"
+                        method="POST"
+                        style="display: inline;"
                     >
 
-                        Proceed to Checkout →
+                        <button
+                            type="submit"
+                            class="button checkout-button"
+                        >
+                            Proceed to Checkout →
+                        </button>
 
-                    </a>
-
+                    </form>
 
                 </div>
 
-
             </div>
-
 
         {% else %}
 
-
-            <!-- =========================================================
-                 EMPTY CART
-            ========================================================= -->
+            <!-- EMPTY CART -->
 
             <div class="empty-cart">
 
-
                 <h2>
-
                     🛒 Your Cart is Empty
-
                 </h2>
 
-
                 <p>
-
                     You haven't added any products yet.
-
                 </p>
-
 
                 <a
                     href="{{ url_for('products_page') }}"
                     class="button checkout-button"
                 >
-
                     🌱 Browse Products
-
                 </a>
-
 
             </div>
 
-
         {% endif %}
 
-
     </div>
-
 
 </body>
 
 </html>
+```

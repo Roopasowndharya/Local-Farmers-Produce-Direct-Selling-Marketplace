@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Orders - Local Farmers Marketplace</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+>
+
+<style>
+
+    body {
+        background: #f4f8f1;
+    }
+
+    .orders-page {
+        width: 90%;
+        max-width: 1000px;
+        margin: 40px auto;
+    }
+
+    /* Page Header */
+
+    .orders-header {
+        background: linear-gradient(
+            135deg,
+            #2e7d32,
+            #66bb6a
+        );
+
+        color: white;
+
+        padding: 35px 25px;
+
+        border-radius: 18px;
+
+        text-align: center;
+
+        margin-bottom: 30px;
+
+        box-shadow:
+            0 6px 18px rgba(0, 0, 0, 0.10);
+    }
+
+    .orders-header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .orders-header p {
+        font-size: 16px;
+        opacity: 0.95;
+    }
+
+    /* Order Card */
+
+    .order-card {
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 25px;
+
+        margin-bottom: 22px;
+
+        box-shadow:
+            0 5px 16px rgba(0, 0, 0, 0.08);
+
+        border-left: 6px solid #43a047;
+
+        transition: 0.2s;
+    }
+
+    .order-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Order Top */
+
+    .order-top {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 15px;
+
+        padding-bottom: 18px;
+
+        border-bottom: 1px solid #e5e5e5;
+
+        margin-bottom: 18px;
+    }
+
+    .order-number {
+        color: #2e7d32;
+
+        font-size: 22px;
+
+        font-weight: bold;
+    }
+
+    /* Status */
+
+    .status {
+        padding: 7px 15px;
+
+        border-radius: 20px;
+
+        background: #e8f5e9;
+
+        color: #2e7d32;
+
+        font-weight: bold;
+
+        font-size: 14px;
+    }
+
+    /* Order Information */
+
+    .order-info {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 18px;
+
+        margin-bottom: 22px;
+    }
+
+    .info-box {
+        background: #f8faf7;
+
+        padding: 15px;
+
+        border-radius: 10px;
+    }
+
+    .info-label {
+        display: block;
+
+        color: #777;
+
+        font-size: 13px;
+
+        margin-bottom: 6px;
+    }
+
+    .info-value {
+        color: #263b2a;
+
+        font-size: 17px;
+
+        font-weight: bold;
+    }
+
+    /* Total */
+
+    .total-box {
+        background: #e8f5e9;
+
+        padding: 16px;
+
+        border-radius: 10px;
+
+        margin-bottom: 20px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+    }
+
+    .total-label {
+        color: #2e7d32;
+
+        font-weight: bold;
+    }
+
+    .total-amount {
+        color: #1b5e20;
+
+        font-size: 22px;
+
+        font-weight: bold;
+    }
+
+    /* Details Button */
+
+    .details-button {
+        display: inline-block;
+
+        background: #43a047;
+
+        color: white;
+
+        padding: 11px 22px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        transition: 0.2s;
+    }
+
+    .details-button:hover {
+        background: #2e7d32;
+    }
+
+    /* Empty Orders */
+
+    .empty-orders {
+        background: white;
+
+        text-align: center;
+
+        padding: 50px 25px;
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 5px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-icon {
+        font-size: 60px;
+
+        margin-bottom: 15px;
+    }
+
+    .empty-orders h2 {
+        color: #2e7d32;
+
+        margin-bottom: 10px;
+    }
+
+    .empty-orders p {
+        color: #666;
+
+        margin-bottom: 25px;
+    }
+
+    .browse-button {
+        display: inline-block;
+
+        background: #43a047;
+
+        color: white;
+
+        padding: 12px 25px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+    }
+
+    .browse-button:hover {
+        background: #2e7d32;
+    }
+
+    /* Back Button */
+
+    .back-section {
+        text-align: center;
+
+        margin: 30px 0;
+    }
+
+    .back-button {
+        display: inline-block;
+
+        background: white;
+
+        color: #2e7d32;
+
+        padding: 11px 24px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        border: 1px solid #c8e6c9;
+    }
+
+    .back-button:hover {
+        background: #e8f5e9;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
+
+        .orders-page {
+            width: 94%;
+        }
+
+        .orders-header h1 {
+            font-size: 26px;
+        }
+
+        .order-top {
+            flex-direction: column;
+
+            align-items: flex-start;
+        }
+
+        .order-info {
+            grid-template-columns: 1fr;
+        }
+
+        .total-box {
+            flex-direction: column;
+
+            align-items: flex-start;
+
+            gap: 8px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="orders-page">
+
+
+    <!-- Page Header -->
+
+    <div class="orders-header">
+
+        <h1>
+            📦 My Orders
+        </h1>
+
+        <p>
+            Track and manage your orders from local farmers
+        </p>
+
+    </div>
+
+
+    {% if orders %}
+
+
+        {% for order in orders %}
+
+
+            <!-- Order Card -->
+
+            <div class="order-card">
+
+
+                <!-- Order Header -->
+
+                <div class="order-top">
+
+                    <div class="order-number">
+
+                        📦 Order #{{ order[0] }}
+
+                    </div>
+
+                    <div class="status">
+
+                        {{ order[2] }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- Order Information -->
+
+                <div class="order-info">
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Order Date
+                        </span>
+
+                        <span class="info-value">
+
+                            📅 {{ order[3] }}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Order Status
+                        </span>
+
+                        <span class="info-value">
+
+                            {{ order[2] }}
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Total -->
+
+                <div class="total-box">
+
+                    <span class="total-label">
+                        Total Amount
+                    </span>
+
+                    <span class="total-amount">
+
+                        ₹{{ "%.2f"|format(order[1]) }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- Details -->
+
+                <a
+                    href="{{ url_for('order_details', order_id=order[0]) }}"
+                    class="details-button"
+                >
+
+                    🔍 View Order Details
+
+                </a>
+
+
+            </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- Empty Orders -->
+
+        <div class="empty-orders">
+
+            <div class="empty-icon">
+                🛒
+            </div>
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+            <p>
+                You haven't placed any orders yet.
+                Explore fresh products from local farmers
+                and place your first order.
+            </p>
+
+            <a
+                href="{{ url_for('products_page') }}"
+                class="browse-button"
+            >
+
+                🥕 Browse Products
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+    <!-- Back -->
+
+    <div class="back-section">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="back-button"
+        >
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+</div>
+```
+
+</body>
+
+</html>

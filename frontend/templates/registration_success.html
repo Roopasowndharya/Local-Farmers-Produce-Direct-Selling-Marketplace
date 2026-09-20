@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Registration Successful</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,8 +22,8 @@
 
             background:
                 linear-gradient(
-                    rgba(244, 248, 241, 0.92),
-                    rgba(244, 248, 241, 0.92)
+                    rgba(235, 245, 232, 0.88),
+                    rgba(235, 245, 232, 0.88)
                 ),
                 url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80");
 
@@ -32,85 +34,190 @@
             justify-content: center;
             align-items: center;
 
-            padding: 20px;
+            padding: 25px;
         }
 
         .success-card {
+
             width: 100%;
-            max-width: 500px;
+            max-width: 560px;
 
-            background: white;
+            background: rgba(255, 255, 255, 0.97);
 
-            padding: 45px 35px;
+            padding: 45px 40px;
 
-            border-radius: 18px;
+            border-radius: 22px;
 
             text-align: center;
 
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.15);
+
+            border: 1px solid #e0eadf;
         }
 
         .success-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
+
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: #e8f5e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 48px;
         }
 
         h1 {
+
             color: #2e7d32;
+
             font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+
+            color: #4caf50;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
             margin-bottom: 15px;
         }
 
         .message {
+
             color: #555;
+
             font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+
+            line-height: 1.7;
+
+            margin-bottom: 28px;
+        }
+
+        .marketplace-note {
+
+            background: #f1f8f1;
+
+            border-left: 4px solid #43a047;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 28px;
+        }
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .login-button,
+        .home-button {
+
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.2s ease;
         }
 
         .login-button {
-            display: inline-block;
 
             background: #43a047;
+
             color: white;
-
-            padding: 13px 30px;
-
-            border-radius: 8px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            margin: 5px;
         }
 
         .login-button:hover {
+
             background: #2e7d32;
+
+            transform: translateY(-2px);
         }
 
         .home-button {
-            display: inline-block;
 
             background: #e8f5e9;
+
             color: #2e7d32;
 
-            padding: 13px 30px;
-
-            border-radius: 8px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            margin: 5px;
+            border: 1px solid #c8e6c9;
         }
 
         .home-button:hover {
+
             background: #c8e6c9;
+
+            transform: translateY(-2px);
         }
+
+        .footer-text {
+
+            margin-top: 25px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            .success-card {
+
+                padding: 35px 22px;
+            }
+
+            h1 {
+
+                font-size: 26px;
+            }
+
+            .buttons {
+
+                flex-direction: column;
+            }
+
+            .login-button,
+            .home-button {
+
+                width: 100%;
+            }
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
@@ -120,23 +227,56 @@
             🎉
         </div>
 
+
         <h1>
             Registration Successful!
         </h1>
 
+
+        <div class="subtitle">
+            Welcome to the Local Farmers Marketplace 🌾
+        </div>
+
+
         <p class="message">
+
             Your account has been created successfully.
-            Welcome to the Local Farmers Marketplace!
-            You can now login to continue.
+
+            You can now login and start exploring
+            fresh products directly from local farmers.
+
         </p>
 
-        <a href="/login" class="login-button">
-            🔐 Login Now
-        </a>
 
-        <a href="/" class="home-button">
-            🏠 Back to Home
-        </a>
+        <div class="marketplace-note">
+
+            🌱 <strong>Direct from local farmers.</strong><br>
+
+            Discover fresh produce and support
+            local farming through our marketplace.
+
+        </div>
+
+
+        <div class="buttons">
+
+            <a href="/login" class="login-button">
+                🔐 Login Now
+            </a>
+
+
+            <a href="/" class="home-button">
+                🏠 Back to Home
+            </a>
+
+        </div>
+
+
+        <p class="footer-text">
+
+            Fresh produce • Local farmers • Direct selling
+
+        </p>
 
     </div>
 

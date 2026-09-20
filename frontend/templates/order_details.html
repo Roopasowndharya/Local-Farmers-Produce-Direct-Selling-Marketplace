@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Details</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Order Details 📦</h1>
+
+        <h2>
+            Order #{{ order[0] }}
+        </h2>
+
+        <p>
+            <strong>Order Date:</strong>
+            {{ order[3] }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            {{ order[2] }}
+        </p>
+
+        <hr>
+
+        <h2>Products</h2>
+
+        {% if items %}
+
+            {% for item in items %}
+
+                <div class="order-card">
+
+                    {% if item[6] %}
+                        <img
+                            src="{{ url_for('static', filename='uploads/' + item[6]) }}"
+                            alt="{{ item[2] }}"
+                            style="width: 180px; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 15px;"
+                        >
+                    {% else %}
+                        <div
+                            style="width: 180px; height: 140px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 12px; margin-bottom: 15px;"
+                        >
+                            🌱 No Image
+                        </div>
+                    {% endif %}
+
+                    <h3>
+                        {{ item[2] }}
+                    </h3>
+
+                    <p>
+                        <strong>Quantity:</strong>
+                        {{ item[3] }} {{ item[5] }}
+                    </p>
+
+                    <p>
+                        <strong>Price:</strong>
+                        ₹{{ "%.2f"|format(item[4]) }} / {{ item[5] }}
+                    </p>
+
+                    <p>
+                        <strong>Subtotal:</strong>
+                        ₹{{ "%.2f"|format(item[3] * item[4]) }}
+                    </p>
+
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No products found for this order.
+            </p>
+
+        {% endif %}
+
+        <h2>
+            Total Amount:
+            ₹{{ "%.2f"|format(order[1]) }}
+        </h2>
+
+        <br>
+
+        <a href="{{ url_for('orders_page') }}">
+            ← Back to My Orders
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('products_page') }}">
+            Continue Shopping
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('dashboard') }}">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+
+</html>

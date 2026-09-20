@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Orders</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .orders-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .orders-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .orders-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .orders-header p {
+            color: #666;
+        }
+
+        .farmer-order-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            background: #fff3cd;
+            color: #856404;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .product-section {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image {
+            width: 150px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .no-image {
+            width: 150px;
+            height: 120px;
+            background: #f1f1f1;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            flex-shrink: 0;
+        }
+
+        .product-info h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .product-info p {
+            margin: 7px 0;
+        }
+
+        .customer-section {
+            margin-top: 20px;
+        }
+
+        .customer-section h3 {
+            margin-bottom: 10px;
+        }
+
+        .status-form {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-form select {
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .status-form button {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .back-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-links a {
+            margin: 0 8px;
+        }
+
+        @media (max-width: 600px) {
+            .product-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .product-image,
+            .no-image {
+                width: 100%;
+                height: 180px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="orders-container">
+
+    <div class="orders-header">
+
+        <h1>🌾 Customer Orders</h1>
+
+        <p>
+            Manage orders placed by customers for your farm products
+        </p>
+
+    </div>
+
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+            <div class="farmer-order-card">
+
+                <div class="order-top">
+
+                    <div class="order-number">
+                        📦 Order #{{ order[0] }}
+                    </div>
+
+                    <div class="status-badge">
+                        {{ order[8] }}
+                    </div>
+
+                </div>
+
+
+                <div class="customer-section">
+
+                    <h3>👤 Customer Details</h3>
+
+                    <p>
+                        <strong>Name:</strong>
+                        {{ order[1] }}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        {{ order[2] }}
+                    </p>
+
+                    <p>
+                        <strong>Order Date:</strong>
+                        {{ order[9] }}
+                    </p>
+
+                </div>
+
+
+                <div class="product-section">
+
+                    {% if order[10] %}
+
+                        <img
+                            src="{{ url_for('static', filename='uploads/' + order[10]) }}"
+                            alt="{{ order[3] }}"
+                            class="product-image"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            🌱 No Image
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="product-info">
+
+                        <h3>🌾 Product Details</h3>
+
+                        <p>
+                            <strong>Product:</strong>
+                            {{ order[3] }}
+                        </p>
+
+                        <p>
+                            <strong>Quantity:</strong>
+                            {{ order[4] }} {{ order[6] }}
+                        </p>
+
+                        <p>
+                            <strong>Price:</strong>
+                            ₹{{ "%.2f"|format(order[5]) }}
+                            / {{ order[6] }}
+                        </p>
+
+                        <p>
+                            <strong>Your Product Total:</strong>
+                            ₹{{ "%.2f"|format(order[7]) }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('update_farmer_order_status', order_id=order[0]) }}"
+                    class="status-form"
+                >
+
+                    <label for="status-{{ order[0] }}">
+                        <strong>Order Status:</strong>
+                    </label>
+
+                    <select
+                        name="status"
+                        id="status-{{ order[0] }}"
+                    >
+
+                        <option value="Pending"
+                            {% if order[8] == "Pending" %}selected{% endif %}>
+                            Pending
+                        </option>
+
+                        <option value="Accepted"
+                            {% if order[8] == "Accepted" %}selected{% endif %}>
+                            Accepted
+                        </option>
+
+                        <option value="Ready"
+                            {% if order[8] == "Ready" %}selected{% endif %}>
+                            Ready
+                        </option>
+
+                        <option value="Completed"
+                            {% if order[8] == "Completed" %}selected{% endif %}>
+                            Completed
+                        </option>
+
+                    </select>
+
+                    <button type="submit">
+                        Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="farmer-order-card">
+
+            <h2>No customer orders yet 📭</h2>
+
+            <p>
+                When customers place orders for your products,
+                they will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="back-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+        </a>
+
+        &nbsp;&nbsp;
+
+        <a href="{{ url_for('my_products_page') }}">
+            🌾 My Products
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
