@@ -3,22 +3,24 @@ from database.database import get_connection
 
 def register(name, email, password, role):
     connection = get_connection()
-    cursor = connection.cursor()
 
     try:
-        cursor.execute(
-            """
-            INSERT INTO users (name, email, password, role)
-            VALUES (?, ?, ?, ?)
-            """,
-            (name, email, password, role)
-        )
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO users (name, email, password, role)
+                VALUES (%s, %s, %s, %s)
+                """,
+                (name, email, password, role)
+            )
 
         connection.commit()
         return True, "Registration successful!"
 
     except Exception as error:
-        if "UNIQUE constraint failed" in str(error):
+        connection.rollback()
+
+        if "duplicate key value violates unique constraint" in str(error):
             return False, "Email already exists!"
 
         return False, str(error)
@@ -29,22 +31,24 @@ def register(name, email, password, role):
 
 def login(email, password):
     connection = get_connection()
-    cursor = connection.cursor()
 
-    cursor.execute(
-        """
-        SELECT *
-        FROM users
-        WHERE email = ? AND password = ?
-        """,
-        (email, password)
-    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT *
+                FROM users
+                WHERE email = %s AND password = %s
+                """,
+                (email, password)
+            )
 
-    user = cursor.fetchone()
+            user = cursor.fetchone()
 
-    connection.close()
+        if user:
+            return True, user
 
-    if user:
-        return True, user
+        return False, None
 
-    return False, None
+    finally:
+        connection.close()

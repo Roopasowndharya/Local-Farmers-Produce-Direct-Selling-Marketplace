@@ -2,3 +2,4 @@ Flask
 Werkzeug
 pytest
 gunicorn
+psycopg2-binary==2.9.13

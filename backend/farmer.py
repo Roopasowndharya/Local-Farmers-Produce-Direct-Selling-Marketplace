@@ -1,234 +1,245 @@
-import sqlite3
-
-
-DB_PATH = "database/farmers.db"
+from database.database import get_connection
 
 
 def add_product(product_name, category, price, quantity, unit, farmer_id, image):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
     try:
-        cursor.execute(
-            """
-            INSERT INTO products
-            (
-                product_name,
-                category,
-                price,
-                quantity,
-                unit,
-                farmer_id,
-                image
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO products
+                (
+                    product_name,
+                    category,
+                    price,
+                    quantity,
+                    unit,
+                    farmer_id,
+                    image
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    product_name,
+                    category,
+                    price,
+                    quantity,
+                    unit,
+                    farmer_id,
+                    image
+                )
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                product_name,
-                category,
-                price,
-                quantity,
-                unit,
-                farmer_id,
-                image
-            )
-        )
 
         connection.commit()
         return True, "Product added successfully!"
 
-    except sqlite3.IntegrityError as e:
-        return False, str(e)
+    except Exception as error:
+        connection.rollback()
+        return False, str(error)
 
     finally:
         connection.close()
 
 
 def view_products():
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
-    cursor.execute(
-        """
-        SELECT
-            product_id,
-            product_name,
-            category,
-            price,
-            quantity,
-            unit,
-            farmer_id,
-            image
-        FROM products
-        """
-    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    product_id,
+                    product_name,
+                    category,
+                    price,
+                    quantity,
+                    unit,
+                    farmer_id,
+                    image
+                FROM products
+                """
+            )
 
-    products = cursor.fetchall()
-    connection.close()
+            products = cursor.fetchall()
 
-    return products
+        return products
+
+    finally:
+        connection.close()
 
 
 def view_farmer_products(farmer_id):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
-    cursor.execute(
-        """
-        SELECT
-            product_id,
-            product_name,
-            category,
-            price,
-            quantity,
-            unit,
-            farmer_id,
-            image
-        FROM products
-        WHERE farmer_id = ?
-        """,
-        (farmer_id,)
-    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    product_id,
+                    product_name,
+                    category,
+                    price,
+                    quantity,
+                    unit,
+                    farmer_id,
+                    image
+                FROM products
+                WHERE farmer_id = %s
+                """,
+                (farmer_id,)
+            )
 
-    products = cursor.fetchall()
-    connection.close()
+            products = cursor.fetchall()
 
-    return products
+        return products
+
+    finally:
+        connection.close()
 
 
 def update_product_image(product_id, farmer_id, image):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
     try:
-        cursor.execute(
-            """
-            UPDATE products
-            SET image = ?
-            WHERE product_id = ?
-            AND farmer_id = ?
-            """,
-            (
-                image,
-                product_id,
-                farmer_id
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE products
+                SET image = %s
+                WHERE product_id = %s
+                AND farmer_id = %s
+                """,
+                (
+                    image,
+                    product_id,
+                    farmer_id
+                )
             )
-        )
+
+            if cursor.rowcount == 0:
+                connection.rollback()
+                return False, "Product not found!"
 
         connection.commit()
-
-        if cursor.rowcount == 0:
-            return False, "Product not found!"
-
         return True, "Product photo updated successfully!"
 
-    except sqlite3.Error as e:
-        return False, str(e)
+    except Exception as error:
+        connection.rollback()
+        return False, str(error)
 
     finally:
         connection.close()
 
 
 def get_product_by_id(product_id):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
-    cursor.execute(
-        """
-        SELECT
-            product_id,
-            product_name,
-            category,
-            price,
-            quantity,
-            unit,
-            farmer_id,
-            image
-        FROM products
-        WHERE product_id = ?
-        """,
-        (product_id,)
-    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    product_id,
+                    product_name,
+                    category,
+                    price,
+                    quantity,
+                    unit,
+                    farmer_id,
+                    image
+                FROM products
+                WHERE product_id = %s
+                """,
+                (product_id,)
+            )
 
-    product = cursor.fetchone()
-    connection.close()
+            product = cursor.fetchone()
 
-    return product
+        return product
+
+    finally:
+        connection.close()
 
 
 def get_farmer_orders(farmer_id):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
-    cursor.execute(
-        """
-        SELECT
-            orders.id,
-            users.name,
-            users.email,
-            products.product_name,
-            order_items.quantity,
-            order_items.price,
-            products.unit,
-            (order_items.quantity * order_items.price) AS farmer_product_total,
-            orders.status,
-            orders.created_at,
-            products.image
-        FROM orders
-        JOIN users
-            ON orders.customer_id = users.id
-        JOIN order_items
-            ON orders.id = order_items.order_id
-        JOIN products
-            ON order_items.product_id = products.product_id
-        WHERE products.farmer_id = ?
-        ORDER BY orders.id DESC
-        """,
-        (farmer_id,)
-    )
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    orders.id,
+                    users.name,
+                    users.email,
+                    products.product_name,
+                    order_items.quantity,
+                    order_items.price,
+                    products.unit,
+                    (order_items.quantity * order_items.price) AS farmer_product_total,
+                    orders.status,
+                    orders.created_at,
+                    products.image
+                FROM orders
+                JOIN users
+                    ON orders.customer_id = users.id
+                JOIN order_items
+                    ON orders.id = order_items.order_id
+                JOIN products
+                    ON order_items.product_id = products.product_id
+                WHERE products.farmer_id = %s
+                ORDER BY orders.id DESC
+                """,
+                (farmer_id,)
+            )
 
-    orders = cursor.fetchall()
-    connection.close()
+            orders = cursor.fetchall()
 
-    return orders
+        return orders
+
+    finally:
+        connection.close()
 
 
 def update_order_status(order_id, farmer_id, status):
-    connection = sqlite3.connect(DB_PATH)
-    cursor = connection.cursor()
+    connection = get_connection()
 
     try:
-        cursor.execute(
-            """
-            UPDATE orders
-            SET status = ?
-            WHERE id = ?
-            AND EXISTS (
-                SELECT 1
-                FROM order_items
-                JOIN products
-                    ON order_items.product_id = products.product_id
-                WHERE order_items.order_id = orders.id
-                AND products.farmer_id = ?
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE orders
+                SET status = %s
+                WHERE id = %s
+                AND EXISTS (
+                    SELECT 1
+                    FROM order_items
+                    JOIN products
+                        ON order_items.product_id = products.product_id
+                    WHERE order_items.order_id = orders.id
+                    AND products.farmer_id = %s
+                )
+                """,
+                (
+                    status,
+                    order_id,
+                    farmer_id
+                )
             )
-            """,
-            (
-                status,
-                order_id,
-                farmer_id
-            )
-        )
+
+            if cursor.rowcount == 0:
+                connection.rollback()
+                return False, "Order not found!"
 
         connection.commit()
-
-        if cursor.rowcount == 0:
-            return False, "Order not found!"
-
         return True, "Order status updated successfully!"
 
-    except sqlite3.Error as e:
+    except Exception as error:
         connection.rollback()
-        return False, str(e)
+        return False, str(error)
 
     finally:
         connection.close()
