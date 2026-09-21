@@ -19,6 +19,7 @@ from flask import (
 )
 
 from werkzeug.utils import secure_filename
+from supabase import create_client
 
 from backend.auth import register, login
 
@@ -41,7 +42,12 @@ from backend.customer import (
 from database.database import create_tables
 
 
+# =========================================================
+# FLASK APPLICATION
+# =========================================================
+
 app = Flask(__name__)
+
 create_tables()
 
 
@@ -49,18 +55,36 @@ create_tables()
 app.secret_key = "local_farmers_marketplace_secret_key"
 
 
-# Product image upload folder
-UPLOAD_FOLDER = os.path.join(
-    BASE_DIR,
-    "frontend",
-    "static",
-    "uploads"
+# =========================================================
+# SUPABASE STORAGE CONFIGURATION
+# =========================================================
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+if not SUPABASE_URL:
+    raise RuntimeError(
+        "SUPABASE_URL environment variable is not set."
+    )
+
+if not SUPABASE_KEY:
+    raise RuntimeError(
+        "SUPABASE_KEY environment variable is not set."
+    )
+
+
+supabase = create_client(
+    SUPABASE_URL,
+    SUPABASE_KEY
 )
 
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+STORAGE_BUCKET = "product-images"
 
 
-# Allowed image file types
+# =========================================================
+# ALLOWED IMAGE FILE TYPES
+# =========================================================
+
 ALLOWED_EXTENSIONS = {
     "png",
     "jpg",
@@ -75,6 +99,89 @@ def allowed_file(filename):
         and filename.rsplit(".", 1)[1].lower()
         in ALLOWED_EXTENSIONS
     )
+
+
+# =========================================================
+# SUPABASE IMAGE UPLOAD
+# =========================================================
+
+def upload_product_image(image):
+    """
+    Upload a product image to Supabase Storage.
+
+    Returns:
+        (True, public_url)
+        or
+        (False, error_message)
+    """
+
+    if not image or image.filename == "":
+        return False, "Please select a product image!"
+
+    if not allowed_file(image.filename):
+        return (
+            False,
+            "Invalid image type! "
+            "Use JPG, JPEG, PNG or WEBP."
+        )
+
+    try:
+
+        # Secure the original filename
+        original_filename = secure_filename(
+            image.filename
+        )
+
+        # Get file extension
+        extension = original_filename.rsplit(
+            ".",
+            1
+        )[1].lower()
+
+        # Create a unique filename
+        unique_filename = (
+            str(uuid.uuid4())
+            + "."
+            + extension
+        )
+
+        # Read image into memory
+        image_bytes = image.read()
+
+        if not image_bytes:
+            return False, "The selected image is empty."
+
+        # Upload to Supabase Storage
+        supabase.storage.from_(
+            STORAGE_BUCKET
+        ).upload(
+            path=unique_filename,
+            file=image_bytes,
+            file_options={
+                "content-type": image.content_type
+                or "application/octet-stream",
+                "cache-control": "3600",
+                "upsert": "false"
+            }
+        )
+
+        # Generate public URL
+        public_url = (
+            supabase.storage
+            .from_(STORAGE_BUCKET)
+            .get_public_url(
+                unique_filename
+            )
+        )
+
+        return True, public_url
+
+    except Exception as error:
+
+        return (
+            False,
+            f"Image upload failed: {error}"
+        )
 
 
 # =========================================================
@@ -213,41 +320,16 @@ def add_product_page():
 
         image = request.files.get("image")
 
-        if not image or image.filename == "":
-            return "Please select a product image!"
-
-        if not allowed_file(image.filename):
-            return (
-                "Invalid image type! "
-                "Use JPG, JPEG, PNG or WEBP."
-            )
-
-        os.makedirs(
-            app.config["UPLOAD_FOLDER"],
-            exist_ok=True
+        # Upload image to Supabase Storage
+        success, image_result = upload_product_image(
+            image
         )
 
-        original_filename = secure_filename(
-            image.filename
-        )
+        if not success:
+            return image_result
 
-        extension = original_filename.rsplit(
-            ".",
-            1
-        )[1].lower()
-
-        unique_filename = (
-            str(uuid.uuid4())
-            + "."
-            + extension
-        )
-
-        image_path = os.path.join(
-            app.config["UPLOAD_FOLDER"],
-            unique_filename
-        )
-
-        image.save(image_path)
+        # image_result is now the Supabase public URL
+        image_url = image_result
 
         # Farmer ID comes automatically
         # from the logged-in user
@@ -260,7 +342,7 @@ def add_product_page():
             quantity,
             unit,
             farmer_id,
-            unique_filename
+            image_url
         )
 
         if success:
@@ -810,48 +892,23 @@ def update_product_photo(product_id):
 
         image = request.files.get("image")
 
-        if not image or image.filename == "":
-            return "Please select a product image!"
-
-        if not allowed_file(image.filename):
-            return (
-                "Invalid image type! "
-                "Use JPG, JPEG, PNG or WEBP."
-            )
-
-        os.makedirs(
-            app.config["UPLOAD_FOLDER"],
-            exist_ok=True
+        # Upload image to Supabase Storage
+        success, image_result = upload_product_image(
+            image
         )
 
-        original_filename = secure_filename(
-            image.filename
-        )
+        if not success:
+            return image_result
 
-        extension = original_filename.rsplit(
-            ".",
-            1
-        )[1].lower()
-
-        unique_filename = (
-            str(uuid.uuid4())
-            + "."
-            + extension
-        )
-
-        image_path = os.path.join(
-            app.config["UPLOAD_FOLDER"],
-            unique_filename
-        )
-
-        image.save(image_path)
+        # image_result is the Supabase public URL
+        image_url = image_result
 
         farmer_id = session["user_id"]
 
         success, message = update_product_image(
             product_id,
             farmer_id,
-            unique_filename
+            image_url
         )
 
         if success:
@@ -888,11 +945,6 @@ def logout():
 if __name__ == "__main__":
 
     create_tables()
-
-    os.makedirs(
-        UPLOAD_FOLDER,
-        exist_ok=True
-    )
 
     app.run(
         debug=True
