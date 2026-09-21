@@ -1,6 +1,5 @@
 import os
 import psycopg2
-from psycopg2.extras import RealDictCursor
 
 
 def get_connection():
@@ -12,18 +11,22 @@ def get_connection():
     database_url = os.getenv("DATABASE_URL")
 
     if not database_url:
-        raise RuntimeError("DATABASE_URL environment variable is not set.")
+        raise RuntimeError(
+            "DATABASE_URL environment variable is not set."
+        )
 
-    connection = psycopg2.connect(database_url)
+    connection = psycopg2.connect(
+        database_url,
+        connect_timeout=10
+    )
 
     return connection
 
 
 def create_tables():
     """
-    Tables are already created in Supabase.
-    This function is kept so existing imports in the
-    Flask application do not break.
+    Verify that the Supabase PostgreSQL database
+    is reachable.
     """
 
     connection = get_connection()
